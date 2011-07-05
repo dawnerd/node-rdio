@@ -27,7 +27,7 @@ module.exports = function(app, rdio){
 				rdio.getPlaybackToken(
 					req.session.oauth_access_token,
 					req.session.oauth_access_token_secret,
-					ct.config.host+":"+ct.config.port,
+					ct.config.host,
 					function(err, data, response) {
 						if(err) throw new Error(err);
 						res.render('index', {
