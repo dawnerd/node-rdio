@@ -2,7 +2,7 @@
     "name": "rdio",
     "description": "API for rdio",
     "keywords": ["rdio", "music", "api"],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "homepage": "https://github.com/dawnerd/node-rdio",
     "authors": ["Troy Whiteley <troy@somanyscientists.com>"],
     "repository": {
