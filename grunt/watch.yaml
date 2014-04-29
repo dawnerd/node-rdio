@@ -1,0 +1,12 @@
+options:
+  livereload: false
+lib:
+  files:
+    - '<%= jshint.lib %>'
+  tasks:
+    - 'lib'
+tools:
+  files:
+    - 'Gruntfile.js'
+    - 'grunt/*.yaml'
+  tasks: 'default'

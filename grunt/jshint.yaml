@@ -1,0 +1,5 @@
+tools:
+  - 'Gruntfile.js'
+  - 'bower.json'
+lib:
+  - 'rdio.js'

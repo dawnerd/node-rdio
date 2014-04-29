@@ -1,0 +1,10 @@
+lib:
+  - jshint:lib
+dev:
+  - lib
+  - watch
+tools:
+  - jshint:tools
+default:
+  - tools
+  - lib
