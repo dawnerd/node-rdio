@@ -13,6 +13,9 @@
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-notify": "~0.2.13",
-    "load-grunt-config":"~0.7.1"
+    "load-grunt-config": "~0.7.1"
+  },
+  "dependencies": {
+    "oauth": "~0.9.11"
   }
 }

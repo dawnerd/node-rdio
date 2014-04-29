@@ -7,7 +7,7 @@
  *                                           
  *	Author: Troy Whiteley <troy@somanyscientists.com>
  *	Homepage: http://github.com/dawnerd/
- *	License: CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0/)
+ *	License: MIT
  *
  *
  *	Config options:
@@ -18,7 +18,7 @@
 
 module.exports = function(config, oauth) {
 	if(typeof oauth == 'undefined') {
-		var oauth = require('oauth').OAuth;
+		oauth = require('oauth').OAuth;
 	}
 	
 	config.rdio_oauth_request = 'http://api.rdio.com/oauth/request_token';
