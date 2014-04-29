@@ -32,7 +32,8 @@ module.exports = function(app, rdio){
 						if(err) throw new Error(err);
 						res.render('index', {
 							playbackToken: JSON.parse(data).result,
-							songs: songs.result
+							songs: songs.result,
+							session: req.session
 						});
 					}
 				);
