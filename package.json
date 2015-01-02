@@ -1,5 +1,6 @@
 {
   "name": "rdio",
+  "description": "a wrapper for the rdio web service api",
   "version": "1.5.2",
   "keywords": [
     "rdio",
@@ -17,5 +18,7 @@
   },
   "dependencies": {
     "oauth": "~0.9.11"
-  }
+  },
+  "repository": "https://github.com/dawnerd/node-rdio",
+  "bugs": "https://github.com/dawnerd/node-rdio"
 }
