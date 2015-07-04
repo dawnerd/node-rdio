@@ -1,7 +1,7 @@
 {
   "name": "rdio",
   "description": "a wrapper for the rdio web service api",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "keywords": [
     "rdio",
     "music",

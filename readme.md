@@ -1,62 +1,32 @@
-[![NPM version](https://badge.fury.io/js/rdio.png)](http://badge.fury.io/js/rdio)
-[![Dependency Status](https://david-dm.org/dawnerd/node-rdio.png)](https://david-dm.org/dawnerd/node-rdio.png)
-
-node-rdio is a wrapper for the rdio web service api.
-
 ## Installation
 
 `npm install rdio --save`
 
-## Future Changes - Please Read
-
-This library is over 3 years old now. At the time I wrote it I was still fairly new to nodejs. Version 2 is coming!
-
-Planned changes:
-
- - No longer required to pass in oauth tokens every request
- - getRequestToken & getAccessToken will be deprecated
- - New config() method for setup
- - Promises & event support
- - Shortcut methods for api endpoints
- - Data validation
- - Error handling
-
-I'm open for requests. If you'd like to see something added, please open an issue.
-
 ## Usage
 
 ```javascript
-var rdio = require('rdio')(config);
+var Rdio = require('rdio');
 
-rdio.api(oauth_access_token, oauth_access_token_secret, {
-    method: 'getTopCharts',
-    type: 'Track',
-    count: 10
-}, callback);
+var rdio = new Rdio({
+  clientId: 'oauth2 app client ID',
+  clientSecret: 'oauth2 app client secret',
+  refreshToken: 'oauth2 user refresh token',
+});
+
+rdio.login(function(err) {
+  if (err) throw err;
+  rdio.call('currentUser', function(err, result) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
 ```
 
-## Methods
 
-### api(access_token, secret_token, payload, callback)
+To obtain the oauth2 (refresh) token for your Rdio user:
 
- - **access_token** string - Oauth access token secret
- - **secret_token** string - Oauth access token secret
- - **payload** object - Data to sent to rdio. See [rdio web service api documentationn](http://www.rdio.com/developers/docs/web-service/index/) for properties.
- - **callback** function(err, data, response) - Called when request is completed.
-
-### getRequestToken(callback)
-
- - **callback** function(error, oauth_token, oauth_token_secret, results)
-
-### getAccessToken(auth_token, auth_token_secret, oauth_verifier, callback)
-
- - **auth_token** string
- - **auth_token_secret** string
- - **oauth_verifier** string
- - **callback** function(error, oauth_token, oauth_token_secret, results)
-
-## Config
-
- - **rdio_api_key** string - rdio api key
- - **rdio_api_shared** string - rdio api shared secret
- - **callback_url** string - url oauth request will redirect to
+ - Create an OAuth 2.0 App: http://www.rdio.com/developers/
+ - Grant your application access to your Rdio user. From your browser, login to Rdio, then open: https://www.rdio.com/oauth2/authorize?response_type=code&client_id=APP_CLIENT_ID&redirect_uri=APP_REDIRECT_URL
+ - If successful, watch the URL you are being redirected to. It will include a special code= paramater. This is the Authorization Code needed to obtain the Refresh Token.
+ - Get the Refresh Token. From the command line: curl -d grant_type=authorization_code -d code=AUTHORIZATION_CODE -d redirect_uri=APP_REDIRECT_URL -d client_id=APP_CLIENT_ID -d client_secret=APP_CLIENT_SECRET https://services.rdio.com/oauth2/token
+ - On success you will be given a Refresh Token.

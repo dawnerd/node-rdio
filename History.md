@@ -1,4 +1,14 @@
 
+2.0.0 / 2015-07-03
+==================
+
+  * Merge pull request #10 from siboulet/oauth2
+  * Refactor using OAuth2
+  * Merge pull request #9 from Emilemuny/patch-1
+  * Update config.js
+  * Merge pull request #8 from zeke/master
+  * add description, repository, and bugs to package.json
+
 1.5.2 / 2014-05-01
 ==================
 
