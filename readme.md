@@ -1,32 +1,78 @@
+# node-rdio
+
+node-rdio is a wrapper for the rdio web service api.
+
+[![NPM version](https://badge.fury.io/js/rdio.png)](http://badge.fury.io/js/rdio)
+[![Dependency Status](https://david-dm.org/dawnerd/node-rdio.png)](https://david-dm.org/dawnerd/node-rdio.png)
+
 ## Installation
 
 `npm install rdio --save`
 
-## Usage
+### Upgrading from < 3.0.0
 
-```javascript
-var Rdio = require('rdio');
+Rdio is now requiring apps to switch over to OAuth 2.0. You can read more [about that here](http://www.rdio.com/developers/docs/web-service/oauth2/index/). The gist of it is you will need to create a new app and change how your app interfaces with the node-rdio module.
 
-var rdio = new Rdio({
-  clientId: 'oauth2 app client ID',
-  clientSecret: 'oauth2 app client secret',
-  refreshToken: 'oauth2 user refresh token',
-});
+Good news is the module is much simpler to use and setup.
 
-rdio.login(function(err) {
-  if (err) throw err;
-  rdio.call('currentUser', function(err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
+HUGE thanks to help from [@siboulet](https://github.com/siboulet) for bringing the module up to date. I've just gone in and merged it with my older v2.0 branch that was still using OAuth 1.0.
+
+### Usage
+
+```js
+var Rdio = require('rdio'){
+  rdio: {
+    clientId: //client id from app manage page
+    clientSecret: //client secret from app manage page
+  }
+};
+
+// in a route or somewhere not global
+var rdio = new Rdio({/*tokens*/}, {/*options*/});
+```
+
+ - (optional) Tokens should be passed in via an object that contains an `accessToken` and `refreshToken`.
+
+ - (optional) Options can extend any of the defaults:
+
+```js
+{
+  urls: {
+    auth: 'https://www.rdio.com/oauth2/authorize',
+    token: 'https://services.rdio.com/oauth2/token',
+    resource: 'https://services.rdio.com/api/1/'
+  },
+  rdio: {
+    clientId: "",
+    clientSecret: ""
+  }
+}
+```
+
+When requesting an access token, your app must redirect the user to a url similar to:
+```
+https://www.rdio.com/oauth2/authorize?response_type=code&client_id=<clientId>&redirect_uri=<redirect_uri>
+```
+
+You can then take that code param and finalize the request:
+
+```js
+rdio.getAccessToken({
+  code: request.query.code,
+  redirect: 'http://localhost:8000/auth'
+}, function(err) {
+  if (err) {
+    return reply(err);
+  }
+
+  reply.redirect('/user');
 });
 ```
 
+If everything went right you should see the `accessToken` and `refreshToken` set. To check this you can call `rdio.getTokens()`
 
-To obtain the oauth2 (refresh) token for your Rdio user:
+For a more complete example checkout the example app in `examples/hapi/`.
 
- - Create an OAuth 2.0 App: http://www.rdio.com/developers/
- - Grant your application access to your Rdio user. From your browser, login to Rdio, then open: https://www.rdio.com/oauth2/authorize?response_type=code&client_id=APP_CLIENT_ID&redirect_uri=APP_REDIRECT_URL
- - If successful, watch the URL you are being redirected to. It will include a special code= paramater. This is the Authorization Code needed to obtain the Refresh Token.
- - Get the Refresh Token. From the command line: curl -d grant_type=authorization_code -d code=AUTHORIZATION_CODE -d redirect_uri=APP_REDIRECT_URL -d client_id=APP_CLIENT_ID -d client_secret=APP_CLIENT_SECRET https://services.rdio.com/oauth2/token
- - On success you will be given a Refresh Token.
+### Something go wrong?
+
+Feel free to leave an issue if something is not working right. I've tested this with a few endpoints and it works, but there still may be some bugs lingering around.

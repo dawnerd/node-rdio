@@ -1,24 +1,39 @@
 {
   "name": "rdio",
-  "description": "a wrapper for the rdio web service api",
   "version": "2.0.0",
   "keywords": [
     "rdio",
     "music",
     "api"
   ],
-  "main": "rdio.js",
+  "main": "lib/rdio.js",
   "author": "Troy Whiteley <troy@somany.us>",
   "devDependencies": {
     "grunt": "0.4.2",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-notify": "~0.2.13",
+    "hapi": "^7.5.2",
     "load-grunt-config": "~0.7.1"
   },
   "dependencies": {
-    "oauth": "~0.9.11"
+    "hoek": "^2.8.1",
+    "oauth": "^0.9.13"
   },
-  "repository": "https://github.com/dawnerd/node-rdio",
-  "bugs": "https://github.com/dawnerd/node-rdio"
+  "description": "[![NPM version](https://badge.fury.io/js/rdio.png)](http://badge.fury.io/js/rdio) [![Dependency Status](https://david-dm.org/dawnerd/node-rdio.png)](https://david-dm.org/dawnerd/node-rdio.png)",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dawnerd/node-rdio.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dawnerd/node-rdio/issues"
+  },
+  "homepage": "https://github.com/dawnerd/node-rdio"
 }
