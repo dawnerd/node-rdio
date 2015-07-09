@@ -6,6 +6,7 @@ var rdioConfig = {
   clientSecret: ''
 }
 
+
 var Rdio = require('../../')({
   rdio: rdioConfig
 });
@@ -75,7 +76,49 @@ server.route([
         reply(response);
       });
     }
-  }
+  },
+  {
+    method: 'GET',
+    path: '/search',
+    handler: function(request, reply) {
+      rdio.request({
+        method: 'search',
+        query: 'diplo',
+        start: 0,
+        count: 20,
+        types: 'Track'
+      }, function(err, response) {
+        if (err) {
+          return reply(err);
+        }
+
+        reply(response);
+      });
+    }
+  },
+  {
+    method: 'GET',
+    path: '/lastPlayed',
+    handler: function(request, reply) {
+      rdio.getClientToken(function(err) {
+        if (err) {
+          return reply(err);
+        }
+
+        rdio.request({
+          method: 'findUser',
+          vanityName: 'dawnerd',
+          extras: 'lastSongPlayed'
+        }, false, function(err, response) {
+          if (err) {
+            return reply(err);
+          }
+
+          reply(response);
+        });
+      });
+    }
+  },
 ]);
 
 server.start();

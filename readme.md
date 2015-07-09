@@ -73,6 +73,10 @@ If everything went right you should see the `accessToken` and `refreshToken` set
 
 For a more complete example checkout the example app in `examples/hapi/`.
 
+### Unauthenticated calls
+
+You can now make calls that only require client authentication by using the `rdio.getClientToken` method. See the example  directory for usage.
+
 ### Something go wrong?
 
 Feel free to leave an issue if something is not working right. I've tested this with a few endpoints and it works, but there still may be some bugs lingering around.
